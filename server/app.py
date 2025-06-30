@@ -73,7 +73,10 @@ class NewsletterByID(Resource):
         newsletter = Newsletter.query.filter_by(id=id).first()
         if newsletter is None:
             response_dict = {"error": "Newsletter not found"}
-            response = make_response(response_dict, 404)
+            response = make_response(
+                response_dict,
+                404,
+            )
             return response
 
         response_dict = newsletter.to_dict()

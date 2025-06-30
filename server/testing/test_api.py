@@ -56,5 +56,7 @@ def test_get_newsletter_by_id(client):
 
 def test_get_newsletter_by_invalid_id(client):
     response = client.get('/newsletters/999')
-    # The current implementation will raise an error if not found, so this test expects a 500 or similar
-    assert response.status_code != 200
+    assert response.status_code == 404
+    data = response.get_json()
+    assert 'error' in data
+    assert data['error'] == 'Newsletter not found'
